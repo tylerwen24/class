@@ -1,0 +1,118 @@
+import math
+import pygame
+import sys
+from pygame.locals import K_ESCAPE, KEYDOWN, QUIT
+
+#colours
+sky_blue = (0,186,246)
+green = (80,160,78)
+yellow = (250,200,0)
+brown = (94,38,18)
+gray = (120,125,120)
+white = (255,255,255)
+
+
+pygame.init()
+
+WIDTH = 640
+HEIGHT = 480
+SIZE = (WIDTH, HEIGHT)
+
+screen = pygame.display.set_mode(SIZE)
+clock = pygame.time.Clock()
+
+circle_x = 0
+circle_y = 100
+circle_x_speed = 0
+
+#values for tree
+x = 100
+y = 200
+radius = 30
+
+#values for cloud
+c = 470
+a = 100
+
+#values for cloud2
+j = 250
+k = 70
+
+#values for cloud3
+l = 45
+m = 45
+
+
+while True:
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            pygame.quit()
+            sys.exit()
+    pygame.display.update()
+
+    circle_x += 0.2
+    amplitude = HEIGHT
+    y_offset = amplitude / 2 + 30
+    circle_y = -1 * (math.sin(circle_x / WIDTH * math.pi) * amplitude / 2) + y_offset
+
+    if circle_x > WIDTH + 30:
+        circle_x = -30
+
+    screen.fill((sky_blue))
+
+    #sun
+    pygame.draw.circle(screen, yellow, (circle_x, circle_y), 50)
+
+    #tree
+    pygame.draw.rect(screen,brown,(x+40,y+50,20,300))
+    pygame.draw.circle(screen, green, (x, y+30), radius)
+    pygame.draw.circle(screen, green, (x+50, y+50), radius)
+    pygame.draw.circle(screen, green, (x+100, y+30), radius)
+    pygame.draw.circle(screen, green, (x+50, y+20), radius+10)
+    pygame.draw.circle(screen, green, (x, y-10), radius)
+    pygame.draw.circle(screen, green, (x+100, y-10), radius)
+    pygame.draw.circle(screen, green, (x+50, y-30), radius)
+
+    #cloud
+    pygame.draw.circle(screen, white, (c, a+30), radius)
+    pygame.draw.circle(screen, white, (c+50, a+50), radius)
+    pygame.draw.circle(screen, white, (c+100, a+30), radius)
+    pygame.draw.circle(screen, white, (c+50, a+20), radius+10)
+    pygame.draw.circle(screen, white, (c, a-10), radius)
+    pygame.draw.circle(screen, white, (c+100, a-10), radius)
+    pygame.draw.circle(screen, white, (c+50, a-30), radius)
+
+      #cloud2
+    pygame.draw.circle(screen, white, (j, k+30), radius)
+    pygame.draw.circle(screen, white, (j+50, k+50), radius)
+    pygame.draw.circle(screen, white, (j+100, k+30), radius)
+    pygame.draw.circle(screen, white, (j+50, k+20), radius+10)
+    pygame.draw.circle(screen, white, (j, k-10), radius)
+    pygame.draw.circle(screen, white, (j+100, k-10), radius)
+    pygame.draw.circle(screen, white, (j+50, k-30), radius)
+
+    #cloud3
+    pygame.draw.circle(screen, white, (l, m+30), radius)
+    pygame.draw.circle(screen, white, (l+50, m+50), radius)
+    pygame.draw.circle(screen, white, (l+100, m+30), radius)
+    pygame.draw.circle(screen, white, (l+50, m+20), radius+10)
+    pygame.draw.circle(screen, white, (l, m-10), radius)
+    pygame.draw.circle(screen, white, (l+100, m-10), radius)
+    pygame.draw.circle(screen, white, (l+50, m-30), radius)
+
+
+    # mountain
+    mountain_color = (94, 38, 18)
+    mountain_points = [(0, 470), (320, 270), (640, 470)]
+    pygame.draw.polygon(screen, mountain_color, mountain_points)
+
+    # grass
+    pygame.draw.rect(screen,green,(0,470,640,10))
+
+  
+
+                      
+pygame.display.flip()
+clock.tick(30)
+
+pygame.quit()
